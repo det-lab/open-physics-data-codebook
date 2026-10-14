@@ -1,3 +1,3 @@
-Export the current codebook (Google Doc, v0.2) to PDF and Markdown and put
-both here as `codebook-v0.2.pdf` and `codebook-v0.2.md` before the first
-release. Keep old versions when the codebook changes.
+One file pair per version: `codebook-vX.Y.pdf` (as exported from the working
+Google Doc) and `codebook-vX.Y.md` (the same text as Markdown, for diffs).
+Keep old versions when the codebook changes.
