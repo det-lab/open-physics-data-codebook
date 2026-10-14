@@ -46,6 +46,21 @@ Each version has its own DOI; the concept DOI in `CITATION.cff` always
 resolves to the latest. A paper that uses the codebook should cite the
 version it used.
 
+## Workflows and secrets
+
+- `release.yml` — runs on a push that adds `codebook/codebook-v*.pdf`, on a
+  published release, or by hand: creates the release if it is missing,
+  waits for Zenodo, writes the concept DOI into `CITATION.cff`, and asks
+  the session website to rebuild.
+- `diagnose.yml` — run by hand to see what the Zenodo lookup finds for a
+  tag, if a release did not sync.
+
+Secrets: `SITE_DISPATCH_TOKEN` (a fine-grained GitHub token with access to
+`det-lab/open-physics-data-terms-site`, Contents: read and write) so the
+website rebuilds after a release; without it, rebuild the site by hand.
+`ZENODO_TOKEN` is optional: with it the lookup can also see records still
+pending community review.
+
 ## License
 
 CC BY 4.0 (see LICENSE).
