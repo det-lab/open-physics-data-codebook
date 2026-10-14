@@ -21,28 +21,30 @@ that the codebook can be versioned, reused, and cited on its own.
 ## Releasing a new version
 
 Do this whenever the codebook changes in a way that affects coding (v0.3
-after the meeting with Suzie Allard, and so on). Each version gets its own
-DOI; the concept DOI in `CITATION.cff` always resolves to the latest.
+after the meeting with Suzie Allard, and so on).
 
-1. In the working Google Doc, set the version line at the top (e.g.
-   "Draft v0.3, <date>") and rename the Doc so its title ends in
-   "(draft v0.3)"; the PDF's metadata title comes from the Doc title.
-2. Export the Doc twice into `codebook/`: File → Download → PDF as
+1. In the working Google Doc, set the version line at the top ("Draft
+   v0.3, <date>") and rename the Doc so its title ends in "(draft v0.3)";
+   the PDF's metadata title comes from the Doc title.
+2. Export the Doc into `codebook/`: File → Download → PDF as
    `codebook-v0.3.pdf`, and File → Download → Markdown as
-   `codebook-v0.3.md`. Keep the earlier versions' files.
-3. Update `CITATION.cff`: `version: 0.3` and `date-released`. If the author
-   list changed, update `authors` here and `creators` in `.zenodo.json`.
-4. If the coded catalog changed with the codebook, export the current
-   coding sheet to `catalog/catalog-full.csv` and update `catalog.csv`.
-5. Commit and push to `main`.
-6. On GitHub, Releases → "Draft a new release": create tag `v0.3` on
-   `main`, title "Codebook v0.3", one line on what changed, Publish.
-   Zenodo archives the release within a few minutes, mints the DOI, and
-   submits the record to the `open-physics-data-terms` community.
-7. First release only: copy the **concept DOI** from the Zenodo record (the
-   one under "Cite all versions") into `CITATION.cff` as `doi:` and push.
-   Later versions keep the same concept DOI. The session website reads it
-   from here.
+   `codebook-v0.3.md`. Keep earlier versions' files.
+3. If the author list changed, update `authors` in `CITATION.cff` and
+   `creators` in `.zenodo.json`. If the coded catalog changed, export it to
+   `catalog/`.
+4. Commit and push to `main`.
+
+The rest is automatic: the workflow sees the new `codebook-v0.3.pdf`, sets
+`version` in `CITATION.cff`, publishes the GitHub release `v0.3` (Zenodo
+archives it and mints the version DOI; the concept DOI stays the same and is
+written into `CITATION.cff` the first time), and asks the session website
+to rebuild so its "Papers and survey methods" page shows the new version.
+Making the release by hand on GitHub works too; the same workflow then
+syncs the DOI.
+
+Each version has its own DOI; the concept DOI in `CITATION.cff` always
+resolves to the latest. A paper that uses the codebook should cite the
+version it used.
 
 ## License
 

@@ -1,0 +1,39 @@
+name: Release codebook version and sync DOI
+
+on:
+  push:
+    branches: [main]
+    paths: [codebook/codebook-v*.pdf]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main, fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install requests
+      - name: Create release if needed; read DOI from Zenodo into CITATION.cff
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/sync_release.py
+      - name: Rebuild the session website
+        env:
+          TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+        run: |
+          [ -z "$TOKEN" ] && { echo "SITE_DISPATCH_TOKEN not set; rebuild the site by hand"; exit 0; }
+          curl -sS -f -X POST -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/det-lab/open-physics-data-terms-site/dispatches \
+            -d '{"event_type":"contributions-released"}'
