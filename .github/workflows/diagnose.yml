@@ -5,6 +5,9 @@ on:
       tag:
         description: "Tag to look for"
         default: v0.2
+      record:
+        description: "Zenodo record id to inspect"
+        default: "23377494"
 jobs:
   look:
     runs-on: ubuntu-latest
@@ -14,3 +17,20 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install requests
       - run: python scripts/zenodo_lookup.py ${{ github.repository }} ${{ inputs.tag }} || true
+      - run: |
+          python - <<'PY'
+          import requests, json
+          r = requests.get("https://zenodo.org/api/records/${{ inputs.record }}", headers={"Accept": "application/json"}, timeout=60)
+          print(f"::notice::record HTTP {r.status_code}")
+          if r.status_code == 200:
+              d = r.json(); m = d.get("metadata", {})
+              print(f"::notice::title={m.get('title')!r} version={m.get('version')!r} doi={d.get('doi')} concept={d.get('conceptdoi')} status={d.get('status')}")
+              print(f"::notice::related={[ (x.get('relation'), x.get('identifier')) for x in (m.get('related_identifiers') or [])]}")
+              print(f"::notice::communities={m.get('communities')} access={d.get('access')}")
+          else:
+              print(f"::notice::{r.text[:300]}")
+          for q in ['"open-physics-data-codebook"', 'open physics data codebook', 'det-lab']:
+              r = requests.get("https://zenodo.org/api/records", params={"q": q, "size": 25, "all_versions": "true"}, timeout=60)
+              hits = r.json().get("hits", {}).get("hits", []) if r.status_code == 200 else []
+              print(f"::notice::search {q!r}: HTTP {r.status_code}, {len(hits)} hits: {[h.get('doi') for h in hits][:5]}")
+          PY
