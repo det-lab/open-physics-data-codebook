@@ -1,0 +1,16 @@
+name: Diagnose Zenodo lookup
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to look for"
+        default: v0.2
+jobs:
+  look:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install requests
+      - run: python scripts/zenodo_lookup.py ${{ github.repository }} ${{ inputs.tag }} || true
