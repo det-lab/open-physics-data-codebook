@@ -73,7 +73,7 @@ def main():
     doi = cff_get("doi")
     if not doi or "XXXX" in doi:
         print("waiting for Zenodo ...")
-        rec, deadline = None, time.time() + 900
+        rec, deadline = None, time.time() + 300
         while not rec and time.time() < deadline:
             rec = find_record(REPO, tag)
             if not rec: time.sleep(30)
