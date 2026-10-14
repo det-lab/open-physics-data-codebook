@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this codebook, please cite the version you used."
+title: "Codebook: license and attribution terms of open physics data"
+authors:
+  - family-names: Roberts
+    given-names: Amy
+    affiliation: University of Colorado Denver
+  - family-names: Taufer
+    given-names: Michela
+    affiliation: University of Tennessee, Knoxville
+  - family-names: Walker
+    given-names: Jessica
+    affiliation: University of Tennessee, Knoxville
+version: 0.2
+license: CC-BY-4.0
+repository-code: https://github.com/det-lab/open-physics-data-codebook
+# doi: 10.5281/zenodo.XXXXXXX   <- concept DOI, after the first Zenodo release

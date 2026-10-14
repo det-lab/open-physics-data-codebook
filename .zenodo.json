@@ -1,0 +1,17 @@
+{
+  "title": "Codebook: license and attribution terms of open physics data",
+  "upload_type": "other",
+  "description": "Survey codebook and coded catalog for a study of the license and attribution terms physics collaborations attach to their public data releases. Developed alongside the SESAPS 2026 moderated discussion \"Open physics data: what license and attribution terms should it carry?\" and archived separately so the codebook can be versioned, reused, and cited on its own.",
+  "creators": [
+    {"name": "Roberts, Amy", "affiliation": "University of Colorado Denver"},
+    {"name": "Taufer, Michela", "affiliation": "University of Tennessee, Knoxville"},
+    {"name": "Walker, Jessica", "affiliation": "University of Tennessee, Knoxville"}
+  ],
+  "license": "CC-BY-4.0",
+  "access_right": "open",
+  "keywords": ["open data", "data licensing", "attribution", "physics", "codebook", "content analysis"],
+  "communities": [{"identifier": "open-physics-data-terms"}],
+  "related_identifiers": [
+    {"identifier": "https://github.com/det-lab/open-physics-data-terms", "relation": "isReferencedBy", "scheme": "url"}
+  ]
+}
