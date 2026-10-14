@@ -14,4 +14,4 @@ authors:
 version: 0.2
 license: CC-BY-4.0
 repository-code: https://github.com/det-lab/open-physics-data-codebook
-# doi: 10.5281/zenodo.XXXXXXX   <- the CONCEPT DOI (all versions), after the first Zenodo release
+doi: 10.5281/zenodo.23377493
